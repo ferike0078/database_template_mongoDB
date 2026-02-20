@@ -6,6 +6,8 @@ import Public from "./pages/Public";
 import Private from "./pages/Private";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
+import { Toaster } from "sonner";
 
 function App() {
   return (
@@ -18,7 +20,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      <Toaster position="bottom-right" richColors />
     </BrowserRouter>
   );
 }

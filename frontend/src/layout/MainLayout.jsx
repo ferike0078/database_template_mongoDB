@@ -1,7 +1,48 @@
-import React from "react";
+import { Link, Outlet } from "react-router-dom";
 
 const MainLayout = () => {
-  return <div>LAYOUT</div>;
+  return (
+    <div className="min-h-screen bg-slate-100">
+      <nav className="bg-white shadow">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex gap-6 items-center">
+          <Link
+            className="font-medium text-slate-800 hover:text-blue-600"
+            to={"/"}
+          >
+            Home
+          </Link>
+          <Link
+            className="font-medium text-slate-800 hover:text-blue-600"
+            to={"/public"}
+          >
+            Public
+          </Link>
+          <Link
+            className="font-medium text-slate-800 hover:text-blue-600"
+            to={"/private"}
+          >
+            Private
+          </Link>
+          <Link
+            className="font-medium text-slate-800 hover:text-blue-600"
+            to={"/login"}
+          >
+            Login
+          </Link>
+          <Link
+            className="font-medium text-slate-800 hover:text-blue-600"
+            to={"/register"}
+          >
+            Register
+          </Link>
+        </div>
+      </nav>
+
+      <div className="max-w-6xl mx-auto p-6">
+        <Outlet />
+      </div>
+    </div>
+  );
 };
 
 export default MainLayout;
