@@ -5,10 +5,18 @@ import routerCar from "./routes/car.route.js";
 import userRouter from "./routes/user.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import {
+  attachUser,
+  logger,
+  requireApiKey,
+  requireLogin,
+} from "./middlewares/test.middleware.js";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //html formoknál használjuk adatkinyerésre
+
+app.use(logger);
 
 //cookie-k olvasasa
 
@@ -28,6 +36,17 @@ app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
 
+app.get("/private", requireApiKey, (req, res) => {
+  res.json({ secret: "Oscar" });
+});
+
+app.get("/me", attachUser, (req, res) => {
+  res.json({ user: req.user });
+});
+
+app.get("/dashboard", requireApiKey, attachUser, requireLogin, (req, res) => {
+  res.json({ message: `Welcome ${req.user.name}` });
+});
 app.use("/api/v1/cars", routerCar);
 app.use("/api/v1/users", userRouter);
 

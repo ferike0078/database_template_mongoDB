@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { api } from "../lib/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,6 +20,25 @@ const Login = () => {
     }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      await api.login(form);
+      toast.success("Login successfully");
+      setInterval(() => {}, 2000);
+      /* await sleep(2000); */
+      navigate("/");
+    } catch (error) {
+      setError(error.message || "Login failed");
+      toast.error("Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
       <h1 className="text-2xl font-semibold text-slate-900">Login</h1>
@@ -31,7 +52,7 @@ const Login = () => {
         </div>
       )}
 
-      <form className="mt-6 space-y-4" onSubmit={() => {}}>
+      <form className="mt-6 space-y-4" onSubmit={onSubmit}>
         <div>
           <label className="block text-sm font-medium text-slate-700">
             Email

@@ -1,9 +1,18 @@
 import { Link, Outlet } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
 const MainLayout = () => {
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+
   return (
     <div className="min-h-screen bg-slate-100">
       <nav className="bg-white shadow">
+        {user && (
+          <p>
+            Hello, <b>{user.username}</b>
+          </p>
+        )}
         <div className="max-w-6xl mx-auto px-6 py-4 flex gap-6 items-center">
           <Link
             className="font-medium text-slate-800 hover:text-blue-600"
@@ -35,6 +44,12 @@ const MainLayout = () => {
           >
             Register
           </Link>
+          <button
+            onClick={logout}
+            className="font-medium text-slate-800 hover:text-blue-600"
+          >
+            Logout
+          </button>
         </div>
       </nav>
 

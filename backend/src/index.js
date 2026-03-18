@@ -1,8 +1,6 @@
-import dotenv from "dotenv"; //.env ből szedjük ki az adatokat
+import "dotenv/config"; //.env ből szedjük ki az adatokat
 import app from "./app.js";
 import connectDB from "./config/database.js";
-
-dotenv.config({ path: "./.env" }); //betöltjük .env fájlt
 
 const startServer = async () => {
   //ez inditja a teljes alkalmazást

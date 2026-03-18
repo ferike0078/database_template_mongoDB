@@ -8,13 +8,23 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import { Toaster } from "sonner";
+import { useEffect } from "react";
+import { useAuthStore } from "./store/authStore";
+import PostDetail from "./components/PostDetail";
 
 function App() {
+  const init = useAuthStore((s) => s.init);
+
+  useEffect(() => {
+    init(); //cookie ellenorzes /me endpointon
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/:id" element={<PostDetail />} />
           <Route path="/public" element={<Public />} />
           <Route path="/private" element={<Private />} />
           <Route path="/login" element={<Login />} />
